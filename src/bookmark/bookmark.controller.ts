@@ -13,6 +13,7 @@ import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
 import { BookmarkService } from './bookmark.service';
 import { CreateBookmarkDto } from './dto';
+import { EditBookmarkDto } from './dto/edit-bookmark.dto';
 
 @UseGuards(JwtGuard)
 @Controller('bookmarks')
@@ -34,7 +35,8 @@ export class BookmarkController {
   ) {}
 
   @Patch()
-  editBookmarkById(@GetUser('id') userId: number) {}
-  @Delete()
+  editBookmarkById(@GetUser('id') userId: number, dto: EditBookmarkDto) {}
+
+  @Delete('id')
   deleteBookmarkById(@GetUser('id') userId: number) {}
 }
