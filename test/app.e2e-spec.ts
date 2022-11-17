@@ -6,7 +6,6 @@ import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto, LoginDto } from '../src/auth/dto';
 import { EditUserDto } from '../src/user/dto';
 import { CreateBookmarkDto, EditBookmarkDto } from '../src/bookmark/dto';
-import { parse } from 'path';
 
 describe('App (e2e)', () => {
   let app: INestApplication;
@@ -210,16 +209,16 @@ describe('App (e2e)', () => {
           .expectStatus(204);
       });
 
-      // it('should get empty bookmarks', () => {
-      //   return pactum
-      //     .spec()
-      //     .get('/bookmarks')
-      //     .withHeaders({
-      //       Authorization: 'Bearer $S{user_token}',
-      //     })
-      //     .expectStatus(200)
-      //     .expectJsonLength(0);
-      // });
+      it('should get empty bookmarks', () => {
+        return pactum
+          .spec()
+          .get('bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{user_token}',
+          })
+          .expectStatus(200)
+          .expectBody({ success: true, data: [] });
+      });
     });
   });
 });
